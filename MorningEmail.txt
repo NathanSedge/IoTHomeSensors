@@ -1,0 +1,31 @@
+
+
+
+channelID = 1634429;
+
+
+alertApiKey = 'TAK0KPYY9JEV045P2CMRC';
+
+
+alertUrl="https://api.thingspeak.com/alerts/send";
+
+
+options = weboptions("HeaderFields", ["ThingSpeak-Alerts-API-Key", alertApiKey ]);
+
+
+alertSubject = sprintf("Home temp and humidity");
+
+
+temp = thingSpeakRead(channelID,'Fields',1);
+humidity = thingSpeakRead(channelID,'Fields',2);
+avgtemp = thingSpeakRead(channelID,'Fields',4);
+avghumidity = thingSpeakRead(channelID,'Fields',5);
+
+
+alertBody = "The current temperature is "+temp+"C and the current humidity is "+ humidity + "%. " + "\n Yesterdays average temperature was" +avgtemp+ "C and the average humidity was" +avghumidity+"%";
+
+try
+    webwrite(alertUrl , "body", alertBody, "subject", alertSubject, options);
+catch someException
+    fprintf("Failed to send alert: %s\n", someException.message);
+end

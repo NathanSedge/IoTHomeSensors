@@ -1,0 +1,19 @@
+readChannelID = 1634429; 
+
+tempFieldID = 1; 
+avgtempID = 4;
+
+readAPIKey = '4WC9IBE1TN52YX8D'; 
+
+temp= thingSpeakRead(readChannelID,'Fields',tempFieldID,'NumMinutes',1440,'ReadKey',readAPIKey); 
+
+
+avgtemp = mean(temp, 'omitnan'); 
+display(avgtemp,'Average temp'); 
+
+writeChannelID = 1634429; 
+
+writeAPIKey = '671XNOTKTV364VIX'; 
+
+
+thingSpeakWrite(writeChannelID,avgtemp,"Field",avgtempID,'WriteKey',writeAPIKey);

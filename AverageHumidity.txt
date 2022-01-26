@@ -1,0 +1,19 @@
+readChannelID = 1634429; 
+
+humidityFieldID = 2; 
+avghumidityID = 5;
+
+readAPIKey = '4WC9IBE1TN52YX8D'; 
+
+humidity = thingSpeakRead(readChannelID,'Fields',humidityFieldID,'NumMinutes',1440,'ReadKey',readAPIKey); 
+
+
+avgHumidity = mean(humidity, 'omitnan'); 
+display(avgHumidity,'Average Humidity'); 
+
+writeChannelID = 1634429; 
+
+writeAPIKey = '671XNOTKTV364VIX'; 
+
+
+thingSpeakWrite(writeChannelID,avgHumidity,"Field",avghumidityID,'WriteKey',writeAPIKey);
